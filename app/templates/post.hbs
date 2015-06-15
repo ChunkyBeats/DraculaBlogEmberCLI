@@ -22,3 +22,9 @@
 <p>{{#link-to 'new-comment'}}Add a Comment{{/link-to}}</p>
 
 {{outlet}}
+
+<ul>
+{{#each comments}}
+  <li>{{comment}}</li>
+{{/each}}
+</ul>

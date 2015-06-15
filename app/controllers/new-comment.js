@@ -1,18 +1,21 @@
 import Ember from "ember";
 
 var NewCommentController = {
+  needs: ['post'],
   actions: {
     save: function() {
       var author = this.get('author');
-      var body = this.get('comment');
-      var newAuthor = this.store.createRecord('author', {
-        name: author
-      })
+      var comment = this.get('comment');
+
       var newComment = this.store.createRecord('comment', {
-        author: newAuthor,
+        author: author,
         comment: comment
       });
       newComment.save();
+
+      var post = this.get('controllers.post.model');
+      post.get('comments').pushObject(newComment);
+      post.save();
 
       this.set('author', '');
       this.set('comment', '');

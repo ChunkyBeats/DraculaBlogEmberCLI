@@ -7,7 +7,7 @@ var NewPostController = {
       var body = this.get('body');
       var newAuthor = this.store.createRecord('author', {
         name: 'dracula'
-      })
+      });
       var newPost = this.store.createRecord('post', {
         title: title,
         body: body,
