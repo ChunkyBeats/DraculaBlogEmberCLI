@@ -1,0 +1,11 @@
+<div>
+  <label for="author">Authored By: </label>
+  {{input type="text" id="author" value=author}}
+</div>
+
+<div>
+  <label for="comment">Comment: </label>
+  {{textarea value=comment id="comment"}}
+</div>
+
+<button {{ action "save" }}>Save</button>

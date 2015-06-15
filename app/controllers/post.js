@@ -11,6 +11,12 @@ var PostController = {
     },
     doneEditing: function() {
       this.set("isEditing", false);
+      this.get('model').save();
+    },
+    delete: function() {
+      var post = this.get('model');
+      post.destroyRecord();
+      this.transitionToRoute('posts');
     }
   }
 };

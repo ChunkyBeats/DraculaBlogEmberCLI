@@ -14,3 +14,11 @@
   <br>
   <button {{action 'edit'}}>Edit</button>
 {{/if}}
+
+
+<button class="btn btn-danger" {{action 'delete'}}>Delete Question</button>
+
+<br><br>
+<p>{{#link-to 'new-comment'}}Add a Comment{{/link-to}}</p>
+
+{{outlet}}

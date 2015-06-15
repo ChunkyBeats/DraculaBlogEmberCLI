@@ -1,6 +1,9 @@
 module.exports = function(app) {
   var express = require('express');
   var postsRouter = express.Router();
+  var bodyParser = require('body-parser');
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   var posts = [
   {
@@ -25,6 +28,8 @@ module.exports = function(app) {
   }
   ];
 
+  var comments = [];
+
   postsRouter.get('/', function(req, res) {
     res.send({
       'posts': posts,
@@ -33,26 +38,39 @@ module.exports = function(app) {
   });
 
   postsRouter.post('/', function(req, res) {
-    res.status(201).end();
+    console.log(req.body)
+    var post = req.body.post;
+    post.id = posts.length + 1;
+    post.author = 1;
+    posts.push(post);
   });
 
   postsRouter.get('/:id', function(req, res) {
     res.send({
       'post': posts.filter(function(post) {
-        return post.id === req.params.id
+        return post.id == req.params.id;
       })[0],
       'authors': authors
     });
   });
 
   postsRouter.put('/:id', function(req, res) {
-    res.send({
-      'posts': posts
-    });
+    var title = req.body.post.title;
+    var body = req.body.post.body;
+    for(var i = 0; i < posts.length; i++){
+      if (req.params.id == posts[i].id) {
+        posts[i].title = title;
+        posts[i].body = body;
+      }
+    }
   });
 
   postsRouter.delete('/:id', function(req, res) {
-    res.status(204).end();
+    for(var i = 0; i < posts.length; i++){
+      if (req.params.id == posts[i].id) {
+        posts.splice(i, 1);
+      }
+    }
   });
 
   app.use('/api/posts', postsRouter);
