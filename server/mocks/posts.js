@@ -1,6 +1,6 @@
 module.exports = function(app) {
   var express = require('express');
-  var postsRouter = express.Router();
+  var postsRouter = express.Router(), commentsRouter = express.Router();
   var bodyParser = require('body-parser');
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,7 +28,13 @@ module.exports = function(app) {
   }
   ];
 
-  var comments = [];
+  var comments = [
+  {
+    id: 1,
+    comment: 'I love the 21st century',
+    author: 1,
+    post: 2
+  }];
 
   postsRouter.get('/', function(req, res) {
     res.send({
@@ -73,5 +79,18 @@ module.exports = function(app) {
     }
   });
 
+  commentsRouter.get('/', function(req, res) {
+    res.send({
+      "comments": comments
+    });
+  });
+
+  // commentsRouter.post('/', function(req, res) {
+  //   res.send({
+  //     ''
+  //   });
+  // });
+
+  app.use('/api/comments', commentsRouter);
   app.use('/api/posts', postsRouter);
 };
