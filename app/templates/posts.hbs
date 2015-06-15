@@ -1,0 +1,14 @@
+<h1>Posts</h1>
+
+<div class="col-md-4">
+
+  <ul class="list-unstyled">
+    {{#each}}
+    <li>{{#link-to 'post' this}}{{title}}{{/link-to}} by {{author.name}}</li>
+    {{/each}}
+  </ul>
+</div>
+
+<div class="col-md-8">
+  {{outlet}}
+</div>
